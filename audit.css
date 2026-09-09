@@ -1,0 +1,100 @@
+.audit-page [hidden] { display: none !important; }
+.audit-page .section-intro { max-width: 740px; margin-top: 24px; color: var(--muted); font-size: 1.125rem; }
+.audit-page .planner-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 32px; }
+.audit-page .planner-field { min-width: 0; }
+.audit-page label { display: block; margin-bottom: 8px; font-weight: 600; }
+.audit-page input, .audit-page textarea, .audit-page select { display: block; width: 100%; min-width: 0; min-height: 52px; border: 1px solid #84949f; border-radius: 5px; padding: 12px 14px; color: var(--ink); background: var(--paper); font: inherit; }
+.audit-page textarea { resize: vertical; }
+.audit-page input:focus-visible, .audit-page textarea:focus-visible, .audit-page select:focus-visible, .audit-page button:focus-visible, .audit-page summary:focus-visible, .audit-page #plan-title:focus, .audit-page #active-run-title:focus { outline: 3px solid var(--blue); outline-offset: 5px; }
+.audit-page .field-hint { margin-top: 10px; color: var(--muted); font-size: 0.875rem; line-height: 1.6; }
+.audit-page .form-action { grid-column: 1 / -1; }
+.audit-page button { font-family: inherit; cursor: pointer; }
+.audit-page .audit-button { color: #ffffff; background: var(--blue); }
+.audit-page .audit-button:hover { background: #193ca0; }
+.audit-page .audit-button-secondary { color: var(--ink); background: var(--paper); border-color: #84949f; }
+.audit-page .audit-button-secondary:hover { background: #ecf0fa; }
+.audit-page button:disabled { cursor: default; opacity: 0.55; }
+.audit-page .query-plan { margin-top: 40px; padding: 32px; border: 1px solid var(--line); border-radius: 8px; }
+.audit-page .plan-heading h3 { font-size: 1.65rem; }
+.audit-page .plan-heading p { margin-top: 12px; color: var(--muted); overflow-wrap: anywhere; }
+.audit-page .query-list { padding-left: 28px; margin-block: 28px; }
+.audit-page .query-list li { padding: 18px 0 18px 8px; border-top: 1px solid var(--line); }
+.audit-page .query-list li::marker { color: var(--blue); font-weight: 600; }
+.audit-page .query-list p { overflow-wrap: anywhere; }
+.audit-page .query-intent { display: block; margin-bottom: 6px; color: var(--muted); font-size: 0.8125rem; }
+.audit-page .plan-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.audit-page .plan-actions .button { min-height: 48px; padding: 12px 18px; }
+.audit-page .planner-status { min-height: 1.6em; margin-top: 18px; font-size: 0.9375rem; }
+.audit-page .manual-copy { margin-top: 20px; }
+.audit-page .manual-note { padding: 20px; background: var(--wash); }
+.audit-page .audit-checklist { padding-left: 24px; margin-block: 0; }
+.audit-page .audit-checklist li { padding-left: 6px; margin-bottom: 16px; }
+.audit-page .example-download-links { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 12px; }
+.audit-page .example-download-links a { display: inline-flex; align-items: center; min-height: 44px; color: var(--blue); font-weight: 600; }
+.audit-page .recorder-section { border-top: 1px solid var(--line); background: var(--wash); }
+.audit-page .recorder-retention { max-width: 860px; margin-block: 28px 36px; padding-left: 20px; border-left: 3px solid var(--blue); color: var(--muted); line-height: 1.7; }
+.audit-page .recorder-retention strong { color: var(--ink); }
+.audit-page .backup-tools { margin-bottom: 28px; padding: 28px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
+.audit-page .backup-tools h3 { font-size: 1.4rem; }
+.audit-page .backup-controls { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: end; gap: 24px; margin-block: 22px 16px; }
+.audit-page .backup-controls .button { min-height: 52px; }
+.audit-page input[type="file"] { min-width: 0; padding: 12px; font-size: 0.875rem; }
+.audit-page input[type="file"]::file-selector-button { margin-right: 10px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 3px; background: var(--wash); color: var(--ink); font: inherit; cursor: pointer; }
+.audit-page .backup-review { margin-top: 20px; padding: 20px; border-left: 3px solid var(--blue); background: var(--wash); }
+.audit-page .backup-review p { margin-bottom: 16px; overflow-wrap: anywhere; }
+.audit-page #backup-status { overflow-wrap: anywhere; }
+.audit-page .run-setup, .audit-page .active-run { border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
+.audit-page .run-setup > summary { padding: 24px 28px; font-size: 1.25rem; font-weight: 600; cursor: pointer; }
+.audit-page summary::marker { color: var(--blue); }
+.audit-page .run-setup-content { padding: 0 28px 28px; }
+.audit-page .run-plan-context { margin-bottom: 24px; color: var(--muted); overflow-wrap: anywhere; }
+.audit-page .optional-label { font-weight: 400; color: var(--muted); }
+.audit-page .run-history { display: flex; align-items: end; gap: 24px; margin-top: 32px; }
+.audit-page .run-history .planner-field { flex: 1; }
+.audit-page .run-history .button { flex-shrink: 0; min-height: 52px; }
+.audit-page .active-run { margin-top: 24px; padding: 32px; }
+.audit-page .active-run-heading h3 { font-size: clamp(1.5rem, 3vw, 2rem); margin-top: 10px; overflow-wrap: anywhere; }
+.audit-page .active-run-heading .field-hint { max-width: 800px; }
+.audit-page .repeat-run-action { margin-top: 20px; }
+.audit-page .run-context { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 28px; margin-block: 28px; padding-block: 24px; border-block: 1px solid var(--line); }
+.audit-page .run-context > div:last-child { grid-column: 1 / -1; }
+.audit-page .run-context dt { color: var(--muted); font-size: 0.8125rem; margin-bottom: 5px; }
+.audit-page .run-context dd { margin: 0; overflow-wrap: anywhere; white-space: pre-wrap; }
+.audit-page .run-progress { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 24px; }
+.audit-page .run-progress > div { padding: 18px; border-radius: 5px; background: var(--wash); }
+.audit-page .run-progress dt { color: var(--muted); font-size: 0.875rem; }
+.audit-page .run-progress dd { margin: 8px 0 0; font-size: 2rem; line-height: 1.15; font-weight: 600; }
+.audit-page .run-tallies { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 28px; }
+.audit-page .run-tallies strong, .audit-page .run-tallies span { display: block; }
+.audit-page .run-tallies span { margin-top: 5px; color: var(--muted); font-size: 0.9375rem; overflow-wrap: anywhere; }
+.audit-page .observation-list { display: grid; gap: 14px; margin-top: 28px; }
+.audit-page .observation-card { border: 1px solid var(--line); border-radius: 6px; }
+.audit-page .observation-card > summary { padding: 22px 24px; cursor: pointer; }
+.audit-page .observation-question { font-weight: 600; overflow-wrap: anywhere; }
+.audit-page .observation-question .query-intent { margin-top: 6px; font-weight: 400; }
+.audit-page .observation-state { display: inline-block; margin-top: 12px; padding: 4px 10px; border-radius: 4px; background: var(--wash); color: var(--muted); font-size: 0.8125rem; font-weight: 600; }
+.audit-page .observation-state[data-status="observed"] { color: #193ca0; background: #edf1ff; }
+.audit-page .observation-state[data-status="error"] { color: #704611; background: #fff4dc; }
+.audit-page .observation-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; padding: 4px 24px 28px; }
+.audit-page .observation-wide, .audit-page .observation-hint { grid-column: 1 / -1; }
+.audit-page .observation-hint { margin-top: -14px; }
+.audit-page select:disabled { color: var(--muted); background: var(--wash); cursor: default; opacity: 0.8; }
+.audit-page .export-draft-note { margin-top: 24px; }
+@media (max-width: 640px) {
+  .audit-page .backup-tools { padding: 24px 16px; }
+  .audit-page .backup-controls { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .audit-page .planner-form, .audit-page .run-context, .audit-page .run-tallies, .audit-page .observation-fields { grid-template-columns: 1fr; }
+  .audit-page .query-plan { padding: 24px 16px; }
+  .audit-page .plan-actions { flex-direction: column; align-items: stretch; }
+  .audit-page .plan-actions .button { width: 100%; }
+  .audit-page .run-history { flex-direction: column; align-items: stretch; gap: 16px; }
+  .audit-page .run-setup > summary { padding: 22px 16px; }
+  .audit-page .run-setup-content { padding: 0 16px 24px; }
+  .audit-page .active-run { padding: 24px 16px; }
+  .audit-page .run-progress { gap: 8px; }
+  .audit-page .run-progress > div { padding: 12px 8px; }
+  .audit-page .run-progress dt { font-size: 0.75rem; }
+  .audit-page .run-progress dd { font-size: 1.6rem; }
+  .audit-page .observation-card > summary { padding: 18px 16px; }
+  .audit-page .observation-fields { padding: 4px 16px 24px; }
+}

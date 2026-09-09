@@ -1,0 +1,8 @@
+﻿"query_id","intent","practice_area","location","query","firm_name","firm_domain","tool","search_context","run_datetime","firm_mentioned","firm_website_cited","cited_urls","accuracy_notes","evidence_reference","next_action"
+"Q01","Provider discovery","estate planning","Boston, MA","estate planning lawyers in Boston, MA","","","","","","","","","","",""
+"Q02","Provider discovery","estate planning","Boston, MA","Which law firms in Boston, MA handle estate planning matters?","","","","","","","","","","",""
+"Q03","Decision support","estate planning","Boston, MA","How do I choose a lawyer for estate planning in Boston, MA?","","","","","","","","","","",""
+"Q04","Decision support","estate planning","Boston, MA","What should I ask a lawyer about estate planning in Boston, MA before hiring them?","","","","","","","","","","",""
+"Q05","First contact","estate planning","Boston, MA","What information should I prepare for a consultation about estate planning in Boston, MA?","","","","","","","","","","",""
+"Q06","Decision support","estate planning","Boston, MA","What factors affect the cost of estate planning legal services in Boston, MA?","","","","","","","","","","",""
+"Q07","First contact","estate planning","Boston, MA","Which law firms in Boston, MA offer initial consultations about estate planning?","","","","","","","","","","",""

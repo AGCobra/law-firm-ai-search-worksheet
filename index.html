@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Law Firm AI Search Visibility Audit Worksheet | Quoted First</title>
+    <meta name="description" content="Plan a law firm AI search audit, record mentions and website links, export a CSV, and save a local backup to resume your observations on a later visit.">
+    <link rel="canonical" href="https://quotedfirst.com/law-firm-ai-search-audit/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Law Firm AI Search Visibility Audit Worksheet | Quoted First">
+    <meta property="og:description" content="Seven repeatable questions and an AI search observation recorder. Keep separate runs, export a CSV, and save a local backup to resume later without signing up.">
+    <meta property="og:url" content="https://quotedfirst.com/law-firm-ai-search-audit/">
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./audit.css?v=20260908-h">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://quotedfirst.com/law-firm-ai-search-audit/#page",
+            "url": "https://quotedfirst.com/law-firm-ai-search-audit/",
+            "name": "Law Firm AI Search Visibility Audit Worksheet",
+            "description": "A query planner and manual observation recorder for reviewing a law firm's mentions, website links, and descriptions in AI search answers.",
+            "publisher": { "@type": "Organization", "name": "Quoted First", "url": "https://quotedfirst.com/" },
+            "mainEntity": { "@id": "https://quotedfirst.com/law-firm-ai-search-audit/#planner" }
+          },
+          {
+            "@type": "WebApplication",
+            "@id": "https://quotedfirst.com/law-firm-ai-search-audit/#planner",
+            "url": "https://quotedfirst.com/law-firm-ai-search-audit/#planner",
+            "name": "Law Firm AI Search Audit Planner and Observation Recorder",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Any",
+            "browserRequirements": "JavaScript is required for personalized queries, the observation recorder, and custom downloads. Static example files are available without JavaScript.",
+            "description": "Creates seven queries and records manual observations in separate runs with fixed questions and search context. Exports CSV and local JSON backups that can be imported on a later visit. Entries are not saved automatically; searches are run separately by the user."
+          }
+        ]
+      }
+    </script>
+    <script type="module" src="./audit.js?v=20260908-h"></script>
+  </head>
+  <body class="audit-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="wordmark" href="https://quotedfirst.com/" aria-label="Quoted First home">
+          <span class="brand-symbol" aria-hidden="true">qf.</span>
+          <span>Quoted First</span>
+        </a>
+        <nav aria-label="Main navigation">
+          <a href="https://quotedfirst.com/llm-seo-for-law-firms/">For law firms</a>
+          <a href="https://quotedfirst.com/#about">About</a>
+          <a href="#contact">Contact <span aria-hidden="true">↗</span></a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="container">
+          <p class="eyebrow">A practical worksheet</p>
+          <h1 id="hero-title">Law firm AI search<br><span>audit worksheet.</span></h1>
+          <div class="hero-bottom">
+            <p class="hero-description">Create seven questions for your practice area and location. Run them in your chosen AI search tool, record firm mentions and website links in the answers, then export your observations.</p>
+            <a class="button button-primary" href="#planner">Plan your audit <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="hero-note">
+            <span>Seven questions. A clear record.</span>
+            <span>Use the worksheet without signing up.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="planner" aria-labelledby="planner-title">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Prepare your questions</p>
+            <h2 id="planner-title">Start with one practice<br>and one location.</h2>
+            <p class="section-intro">Choose a practice area your firm handles and a place it serves. Build the questions, then use the observation recorder below as you review the answers. You run the searches yourself.</p>
+          </div>
+
+          <div id="interactive-planner" hidden>
+            <form id="query-form" class="planner-form">
+              <div class="planner-field">
+                <label for="practice-area">Practice area</label>
+                <input id="practice-area" name="practice" type="text" value="estate planning" required maxlength="80" aria-describedby="practice-hint" disabled>
+                <p id="practice-hint" class="field-hint">A short phrase, such as employment, family law, or estate planning. Up to 80 characters.</p>
+              </div>
+              <div class="planner-field">
+                <label for="location">Location</label>
+                <input id="location" name="location" type="text" value="Boston, MA" required maxlength="80" aria-describedby="location-hint" disabled>
+                <p id="location-hint" class="field-hint">Include the city and state or region. Up to 80 characters.</p>
+              </div>
+              <div class="form-action">
+                <button class="button audit-button" id="build-plan" type="submit" disabled>Build query plan</button>
+                <p class="field-hint">The prefilled values are an example. Build again after changing them.</p>
+              </div>
+            </form>
+          </div>
+          <noscript><p class="manual-note">Use the example below as a template or download the example files directly. Enable JavaScript to personalize the plan and create customized downloads.</p></noscript>
+
+          <div class="query-plan" aria-labelledby="plan-title">
+            <div class="plan-heading">
+              <h3 id="plan-title" tabindex="-1">Example query plan</h3>
+              <p id="plan-context">Estate planning in Boston, MA. These are illustrative questions, not search results.</p>
+            </div>
+            <ol class="query-list" id="query-list">
+              <li><span class="query-intent">Provider discovery</span><p>estate planning lawyers in Boston, MA</p></li>
+              <li><span class="query-intent">Provider discovery</span><p>Which law firms in Boston, MA handle estate planning matters?</p></li>
+              <li><span class="query-intent">Decision support</span><p>How do I choose a lawyer for estate planning in Boston, MA?</p></li>
+              <li><span class="query-intent">Decision support</span><p>What should I ask a lawyer about estate planning in Boston, MA before hiring them?</p></li>
+              <li><span class="query-intent">First contact</span><p>What information should I prepare for a consultation about estate planning in Boston, MA?</p></li>
+              <li><span class="query-intent">Decision support</span><p>What factors affect the cost of estate planning legal services in Boston, MA?</p></li>
+              <li><span class="query-intent">First contact</span><p>Which law firms in Boston, MA offer initial consultations about estate planning?</p></li>
+            </ol>
+            <div id="plan-actions" class="plan-actions" hidden>
+              <button type="button" class="button audit-button" id="copy-queries">Copy queries</button>
+              <button type="button" class="button audit-button-secondary" id="download-csv">Download blank CSV</button>
+              <button type="button" class="button audit-button-secondary" id="download-checklist">Download checklist</button>
+              <a class="button audit-button-secondary" href="#recorder">Record observations <span aria-hidden="true">↓</span></a>
+            </div>
+            <p id="planner-status" class="planner-status" role="status" aria-live="polite" aria-atomic="true"></p>
+            <div id="manual-copy" class="planner-field manual-copy" hidden>
+              <label for="copy-text">Queries for manual copying</label>
+              <textarea id="copy-text" rows="9" readonly></textarea>
+            </div>
+            <p class="field-hint">The blank CSV is an option for working in a spreadsheet. To export completed entries, use “Download all runs” in the recorder below. This page does not run searches.</p>
+            <div class="working-note example-downloads" aria-labelledby="example-downloads-title">
+              <h3 id="example-downloads-title">Download the example worksheet</h3>
+              <p>These direct-download files work without JavaScript and always use estate planning in Boston, MA. Save a copy and adapt it for your firm.</p>
+              <div class="example-download-links">
+                <a href="./example-audit.csv" download="law-firm-ai-search-audit-example.csv">Example observation sheet (CSV)</a>
+                <a href="./example-checklist.txt" download="law-firm-ai-search-audit-example-checklist.txt">Example checklist (TXT)</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section recorder-section" id="recorder" aria-labelledby="recorder-title">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Record your findings</p>
+            <h2 id="recorder-title">AI search<br>observation recorder.</h2>
+            <p class="section-intro">Record firm mentions, links to your website, and accuracy notes from the AI search answers you review. Use a separate run for each firm, tool, search session, or set of questions.</p>
+          </div>
+          <p class="recorder-retention"><strong>Keep a copy before you leave.</strong> Entries stay only in this open tab. Download a runs backup before closing or reloading, then import that JSON file on a later visit. The page does not save automatically or send your entries to a server.</p>
+          <noscript><p class="manual-note">The recorder needs JavaScript. You can use the example CSV and checklist above to keep the same observations in your own files.</p></noscript>
+
+          <div id="interactive-recorder" hidden>
+            <section class="backup-tools" aria-labelledby="backup-title">
+              <h3 id="backup-title">Save or resume your work</h3>
+              <p class="field-hint">A JSON backup keeps every started run, its original questions and context, and all observation entries. Import it here on your next visit, then start a new run for later searches. Unstarted form edits are not included. Use CSV for spreadsheet review.</p>
+              <div class="backup-controls">
+                <button class="button audit-button-secondary" id="download-backup" type="button" disabled>Download runs backup</button>
+                <div class="planner-field">
+                  <label for="backup-file">Import a runs backup (JSON)</label>
+                  <input id="backup-file" type="file" accept=".json,application/json" aria-describedby="backup-limits">
+                </div>
+              </div>
+              <p class="field-hint" id="backup-limits">Up to 100 runs per tab and 5 MiB per backup, including combined imports. Identical run IDs and entries are skipped; differing entries under the same ID stop the entire import. Nothing is overwritten or shortened.</p>
+              <div class="backup-review" id="backup-review" hidden>
+                <p id="backup-review-text"></p>
+                <div class="plan-actions">
+                  <button class="button audit-button" id="confirm-import" type="button" disabled>Import runs</button>
+                  <button class="button audit-button-secondary" id="cancel-import" type="button">Cancel import</button>
+                </div>
+              </div>
+              <p class="planner-status" id="backup-status" role="status" aria-live="polite" aria-atomic="true"></p>
+            </section>
+
+            <details class="run-setup" id="run-setup" open>
+              <summary>Start a new run</summary>
+              <div class="run-setup-content">
+                <p id="run-plan-context" class="run-plan-context"></p>
+                <form id="run-form" class="planner-form">
+                  <div class="planner-field">
+                    <label for="run-firm-name">Firm name</label>
+                    <input id="run-firm-name" name="firmName" type="text" autocomplete="organization" required>
+                  </div>
+                  <div class="planner-field">
+                    <label for="run-firm-website">Firm website</label>
+                    <input id="run-firm-website" name="firmWebsite" type="url" placeholder="https://example.com" autocomplete="url" required>
+                  </div>
+                  <div class="planner-field">
+                    <label for="run-tool">AI search tool</label>
+                    <input id="run-tool" name="tool" type="text" placeholder="For example, ChatGPT Search" required>
+                  </div>
+                  <div class="planner-field">
+                    <label for="run-datetime">Search session date and time</label>
+                    <input id="run-datetime" name="runDatetime" type="datetime-local" aria-describedby="run-date-hint" required>
+                    <p class="field-hint" id="run-date-hint">Enter when you ran these searches. Use another run for a later comparison.</p>
+                  </div>
+                  <div class="planner-field">
+                    <label for="run-timezone">Time zone</label>
+                    <input id="run-timezone" name="timezone" type="text" aria-describedby="run-zone-hint" required>
+                    <p class="field-hint" id="run-zone-hint">Prefilled from your browser. Change it if the entered time uses a different zone.</p>
+                  </div>
+                  <div class="planner-field">
+                    <label for="run-settings">Search mode and settings <span class="optional-label">(optional)</span></label>
+                    <textarea id="run-settings" name="searchContext" rows="2" placeholder="Search mode, location settings, or other context to repeat"></textarea>
+                  </div>
+                  <div class="form-action">
+                    <button class="button audit-button" id="start-run" type="submit">Start recording this run</button>
+                    <p class="field-hint">Each run keeps its original questions and context. Starting another run preserves earlier entries in this tab and begins with every question untested.</p>
+                  </div>
+                </form>
+              </div>
+            </details>
+
+            <div class="run-history" id="run-history" hidden>
+              <div class="planner-field">
+                <label for="run-select">Runs in this tab</label>
+                <select id="run-select"></select>
+              </div>
+              <button class="button audit-button" id="download-runs" type="button" disabled>Download all runs (CSV)</button>
+            </div>
+            <p class="field-hint" id="export-context"></p>
+            <p class="planner-status" id="recorder-status" role="status" aria-live="polite" aria-atomic="true"></p>
+
+            <section class="active-run" id="active-run" aria-labelledby="active-run-title" hidden>
+              <div class="active-run-heading">
+                <p class="eyebrow">Selected run</p>
+                <h3 id="active-run-title" tabindex="-1"></h3>
+                <p class="field-hint">The details below belong to this run. Use “Start a new run” to record different questions, a different firm, or another search session.</p>
+                <div class="plan-actions repeat-run-action">
+                  <button class="button audit-button-secondary" id="reuse-run-plan" type="button">Use these questions for a new run</button>
+                </div>
+                <p class="field-hint">This selects the exact saved questions for your next run and replaces the draft query plan above. Check the new search context before starting; observations begin blank.</p>
+              </div>
+              <dl class="run-context" id="active-run-context"></dl>
+              <dl class="run-progress" aria-label="Recorded response counts">
+                <div><dt>Responses reviewed</dt><dd id="observed-count">0</dd></div>
+                <div><dt>Not run</dt><dd id="untested-count">7</dd></div>
+                <div><dt>Search errors</dt><dd id="error-count">0</dd></div>
+              </dl>
+              <div class="run-tallies">
+                <p><strong>Firm mentioned</strong><span id="mention-counts"></span></p>
+                <p><strong>Firm website linked</strong><span id="citation-counts"></span></p>
+              </div>
+              <p class="field-hint">Mention and link counts include only reviewed responses. Untested questions and search errors are excluded; unchecked choices stay separate. These counts describe your recorded sample.</p>
+              <div class="observation-list" id="observation-list"></div>
+              <p class="field-hint export-draft-note">If you change a response back to “Not run” or “Search error,” its entries stay as a draft. The CSV leaves its result classifications blank and preserves earlier choices in separate draft columns.</p>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="section about" aria-labelledby="method-title">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Use the worksheet</p>
+            <h2 id="method-title">Keep the evidence<br>with the observation.</h2>
+          </div>
+          <div class="service-grid">
+            <article class="service">
+              <span class="service-number" aria-hidden="true">01</span>
+              <h3>Run a consistent sample</h3>
+              <p>Save the exact questions before you begin. Record your firm's name and website, the AI search tool, its search mode, the date and time, and relevant location or account settings. Run each question separately. Keep the first result you observe, including an empty result or an error, so the record reflects the sample you planned.</p>
+            </article>
+            <article class="service">
+              <span class="service-number" aria-hidden="true">02</span>
+              <h3>Record what appeared</h3>
+              <p>Use the recorder or your own observation sheet to save the answer and source URLs. Mark a firm mention separately from a link to your firm's website. Use yes, no, or unclear only after checking; leave untested results blank. Verify descriptions against facts your firm can substantiate and record the exact claim when you find an error.</p>
+            </article>
+            <article class="service">
+              <span class="service-number" aria-hidden="true">03</span>
+              <h3>Compare later observations</h3>
+              <p>Import your saved runs backup and select a run. Choose “Use these questions for a new run” to retain its exact questions, then enter the new search date and context. Record fresh observations and note website changes between runs. A missing result does not establish index absence, and seven questions cannot describe every prospective client's experience.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="checklist-title">
+        <div class="container about-grid">
+          <div>
+            <p class="eyebrow">Before you compare</p>
+            <h2 id="checklist-title">Your manual audit<br>checklist.</h2>
+          </div>
+          <div class="about-copy">
+            <ul class="audit-checklist">
+              <li>Confirm the practice area and location match the firm's actual services.</li>
+              <li>Save the fixed query list and identify the firm and website being reviewed.</li>
+              <li>Record the tool, search mode, relevant settings, and date and time.</li>
+              <li>Run each question separately and save the answer, sources, or error.</li>
+              <li>Distinguish a name mention from a linked website citation.</li>
+              <li>Check factual descriptions against information your firm has approved.</li>
+              <li>Choose specific accuracy, content, or website issues to investigate.</li>
+              <li>Repeat the same sample later and retain both sets of observations.</li>
+            </ul>
+            <div class="working-note">
+              <h3>A record, not an automatic score</h3>
+              <p>You enter each observation after checking the response. The recorder counts only the responses you mark reviewed. It does not contact search engines, assess visibility automatically, or promise a ranking. A website link, a firm mention, and an accurate description answer different questions.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section about" aria-labelledby="faq-title">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Common questions</p>
+            <h2 id="faq-title">Read results in context.</h2>
+          </div>
+          <div class="service-grid">
+            <article class="service">
+              <h3>Does this test my firm automatically?</h3>
+              <p>No. It creates seven questions and records your manual entries. You run the searches in the tool you choose, review the answers and source links, and enter what appeared. It does not generate legal answers, check legal citations, or recommend providers.</p>
+            </article>
+            <article class="service">
+              <h3>Does a missing result mean we are not indexed?</h3>
+              <p>No. These questions show what appeared in specific searches. They do not expose an index inventory or explain why a page was omitted. Record the absence without assigning a cause the evidence does not establish.</p>
+            </article>
+            <article class="service">
+              <h3>What can we compare between runs?</h3>
+              <p>Compare firm mentions, website links, and description accuracy for the same questions. Start another run for a later session; earlier runs keep their questions and context. Download all runs to retain the dates, settings, and observations beyond this visit. The recorder does not calculate a universal visibility score.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section contact" id="contact" aria-labelledby="contact-title">
+        <div class="container contact-inner">
+          <div>
+            <p class="eyebrow">Help with the next step</p>
+            <h2 id="contact-title">Turn observations<br>into useful questions.</h2>
+            <p>Use the <a href="https://quotedfirst.com/law-firm-ai-search-audit/">original live worksheet</a> or visit <a href="https://quotedfirst.com/llm-seo-for-law-firms/">Quoted First for law firms</a> for more information.</p>
+          </div>
+          <div class="contact-action">
+            <a class="email-link" href="mailto:hello@quotedfirst.com">hello@quotedfirst.com <span aria-hidden="true">↗</span></a>
+            <p>Share your website and the questions you want to investigate.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <a class="wordmark" href="https://quotedfirst.com/">Quoted First<span aria-hidden="true">.</span></a>
+        <p>© 2026 Quoted First</p>
+        <a href="#main">Back to top <span aria-hidden="true">↑</span></a>
+      </div>
+    </footer>
+  </body>
+</html>

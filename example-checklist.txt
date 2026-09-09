@@ -1,0 +1,32 @@
+LAW FIRM AI SEARCH VISIBILITY AUDIT WORKSHEET
+Quoted First | https://quotedfirst.com/law-firm-ai-search-audit/
+
+Practice area: estate planning
+Location: Boston, MA
+
+This planner prepares questions. Run the searches yourself and record the results.
+No searches have been run by this planner.
+
+FIXED QUERY PLAN
+Q01 [Provider discovery] estate planning lawyers in Boston, MA
+Q02 [Provider discovery] Which law firms in Boston, MA handle estate planning matters?
+Q03 [Decision support] How do I choose a lawyer for estate planning in Boston, MA?
+Q04 [Decision support] What should I ask a lawyer about estate planning in Boston, MA before hiring them?
+Q05 [First contact] What information should I prepare for a consultation about estate planning in Boston, MA?
+Q06 [Decision support] What factors affect the cost of estate planning legal services in Boston, MA?
+Q07 [First contact] Which law firms in Boston, MA offer initial consultations about estate planning?
+
+MANUAL CHECKLIST
+[ ] Confirm the practice area and location match the firm's actual services.
+[ ] Save the fixed query list and identify the firm and website being reviewed.
+[ ] Record the tool, search mode, relevant settings, and date and time.
+[ ] Run each question separately and save the answer, sources, or error.
+[ ] Distinguish a name mention from a linked website citation.
+[ ] Check factual descriptions against information your firm has approved.
+[ ] Choose specific accuracy, content, or website issues to investigate.
+[ ] Repeat the same sample later and retain both sets of observations.
+
+OBSERVATION NOTES
+Leave untested observations blank. After checking, use yes, no, or unclear for mentions and citations.
+Save the exact answer, source URLs, date/time, tool settings, and evidence reference.
+A missing result does not establish index absence. This sample is not a universal visibility score.
