@@ -424,6 +424,82 @@ export function compareRuns(first, second) {
   };
 }
 
+export function createRunReport(run) {
+  if (!run) throw new Error('Choose a saved run to download its report.');
+  const checked = checkedRun({ id: run.id, plan: run.plan, context: run.context, observations: run.observations }, 0);
+  const escape = value => String(value).replace(/[&<>"']/g, character => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+  })[character]);
+  const value = text => text === '' ? '<span class="empty">Not recorded</span>' : escape(text);
+  const fields = entries => entries.map(([label, text]) => `<dt>${escape(label)}</dt><dd>${value(text)}</dd>`).join('');
+  const totals = summarizeRun(checked);
+  const runLabel = Number.isInteger(run.number) && run.number > 0 ? 'Run ' + run.number : 'Saved run';
+  const generatedAt = new Date().toISOString();
+  const context = [
+    ['Firm name', checked.context.firmName], ['Firm website', checked.context.firmWebsite],
+    ['Practice area', checked.plan.practiceArea], ['Location', checked.plan.location],
+    ['AI search tool', checked.context.tool], ['Search mode and settings', checked.context.searchContext],
+    ['Search date and time as entered', checked.context.runDatetime], ['Time zone as entered', checked.context.timezone],
+    ['Run ID', checked.id], ['Report generated (UTC)', generatedAt],
+  ];
+  const countRows = [
+    ['Yes', 'yes'], ['No', 'no'], ['Unclear', 'unclear'], ['Not checked', 'unchecked'],
+  ].map(([label, key]) => `<tr><th scope="row">${label}</th><td>${totals.mentions[key]}</td><td>${totals.citations[key]}</td></tr>`).join('');
+  const questions = checked.plan.queries.map(query => {
+    const entry = checked.observations[query.id];
+    const reviewed = entry.status === 'observed';
+    const classifications = fields([
+      ['Firm mentioned', reviewed ? CLASSIFICATIONS[entry.firmMentioned] : 'Not available'],
+      ['Firm website linked', reviewed ? CLASSIFICATIONS[entry.firmWebsiteCited] : 'Not available'],
+    ]);
+    const drafts = reviewed ? '' : `<section class="drafts"><h3>Retained draft classifications</h3>
+      <p>These earlier choices are retained for review and excluded from response counts.</p>
+      <dl>${fields([['Draft firm mention', CLASSIFICATIONS[entry.firmMentioned]], ['Draft website link', CLASSIFICATIONS[entry.firmWebsiteCited]]])}</dl></section>`;
+    return `<section class="question" aria-labelledby="${query.id}">
+      <p class="eyebrow">${query.id} · ${escape(query.intent)}</p><h2 id="${query.id}">${escape(query.text)}</h2>
+      <p class="status">${STATUSES[entry.status]}</p>
+      ${reviewed ? '' : '<p class="notice">This question is not marked “Response reviewed.” Any error or retained draft text is included below; no absence of a mention or link is assumed.</p>'}
+      <dl>${classifications}</dl>${drafts}
+      <h3>${reviewed ? 'Recorded evidence and follow-up' : 'Error or retained draft text and notes'}</h3>
+      <dl>${fields([
+        ['Source URLs as entered', entry.sourceUrls], ['Answer or error text', entry.answerText],
+        ['Accuracy notes', entry.accuracyNotes], ['Evidence reference', entry.evidenceReference], ['Next action', entry.nextAction],
+      ])}</dl>
+    </section>`;
+  }).join('');
+  return `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>AI search audit report — ${escape(checked.context.firmName)} — ${escape(runLabel)}</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f5f8;color:#17212e;font:16px/1.55 Arial,Helvetica,sans-serif}
+main{max-width:900px;margin:32px auto;padding:40px 48px;background:#fff}header{border-top:6px solid #244fd6;padding-top:22px}
+h1{font-size:34px;line-height:1.15;margin:10px 0 14px}h2{font-size:23px;line-height:1.3}h3{font-size:17px;margin-bottom:8px}
+h1,h2,h3,dt{break-after:avoid;overflow-wrap:anywhere}h1,h2,h3{break-inside:avoid}p{margin:8px 0 16px}.eyebrow{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#43516a}
+.notice,.drafts{padding:14px 16px;background:#f3f5f8;border-left:3px solid #a4afc1}.empty{color:#5b6472;font-style:italic}
+dl{margin:12px 0 24px}dt{font-size:13px;font-weight:700;margin-top:14px}dd{margin:4px 0 0;white-space:pre-wrap;overflow-wrap:anywhere;orphans:3;widows:3}
+.context{display:grid;grid-template-columns:minmax(145px,1fr) minmax(0,3fr);column-gap:24px}.context dt,.context dd{margin-top:10px}
+table{border-collapse:collapse;width:100%;margin:18px 0 24px;table-layout:fixed}caption{text-align:left;font-weight:700;margin-bottom:8px}
+th,td{text-align:left;padding:10px;border-bottom:1px solid #cdd3dd;overflow-wrap:anywhere}thead th{background:#f3f5f8}tr{break-inside:avoid}
+.question{border-top:2px solid #cdd3dd;margin-top:32px;padding-top:20px}.question>.eyebrow{break-after:avoid}.status{font-weight:700}.drafts dl{margin-bottom:0}
+footer{border-top:1px solid #cdd3dd;padding-top:18px;margin-top:32px;font-size:13px;color:#43516a}a{color:#244fd6}
+@media(max-width:600px){main{margin:0;padding:24px 18px}h1{font-size:28px}h2{font-size:21px}.context{display:block}th,td{padding:8px 5px;font-size:14px}}
+@page{margin:16mm}@media print{body{background:#fff;font-size:11pt;line-height:1.45}main{max-width:none;margin:0;padding:0}h1{font-size:25pt}h2{font-size:17pt}h3{font-size:12pt}.context{display:block}.screen-help{display:none}.question{margin-top:22pt;padding-top:14pt}.notice,.drafts{background:#fff;border:1px solid #a4afc1}a{color:inherit;text-decoration:none}thead{display:table-header-group}}
+</style></head><body><main>
+<header><p class="eyebrow">Quoted First · ${escape(runLabel)}</p><h1>AI search audit report</h1>
+<p>Manually recorded observations for <strong>${escape(checked.context.firmName)}</strong>.</p>
+<p class="screen-help notice">Use your browser's Print command to print this report or save it as a PDF. This file includes every entered field in the selected run; review its notes before sharing. Keep the separate JSON backup to resume editing.</p></header>
+<section aria-labelledby="context-title"><h2 id="context-title">Original run context</h2><dl class="context">${fields(context)}</dl></section>
+<section aria-labelledby="summary-title"><h2 id="summary-title">Recorded sample</h2>
+<p><strong>${checked.plan.queries.length} planned questions:</strong> ${totals.observed} responses reviewed · ${totals.untested} not run · ${totals.errors} search errors.</p>
+<table><caption>Classifications among the ${totals.observed} reviewed responses</caption><thead><tr><th scope="col">Classification</th><th scope="col">Firm mentioned</th><th scope="col">Firm website linked</th></tr></thead><tbody>${countRows}</tbody></table>
+<p>Counts apply only to this run's reviewed responses. Not-run questions, errors, and retained draft classifications are excluded. Accuracy notes remain attached to each question. This sample cannot establish visibility for every user or question.</p></section>
+${questions}
+<footer><p>Generated locally with the <a href="https://quotedfirst.com/law-firm-ai-search-audit/">Quoted First manual audit worksheet</a>. The worksheet prepares questions and records entries; the user runs and reviews the searches. This report is a snapshot and does not update when the saved run changes.</p></footer>
+</main></body></html>`;
+}
+
 export function createRunsCsv(runs) {
   const headers = [
     'run_id', 'run_number', 'firm_name', 'firm_website', 'tool', 'search_context',
@@ -468,6 +544,7 @@ function initializePlanner() {
   const recorderStatus = byId('recorder-status');
   const downloadRuns = byId('download-runs');
   const downloadBackup = byId('download-backup');
+  const downloadReport = byId('download-report');
   const backupFile = byId('backup-file');
   const backupReview = byId('backup-review');
   const backupStatus = byId('backup-status');
@@ -521,6 +598,11 @@ function initializePlanner() {
     byId('run-history').hidden = !session.runs.length;
     downloadRuns.disabled = !session.runs.length;
     downloadBackup.disabled = !session.runs.length;
+    downloadReport.disabled = !session.activeRun;
+    byId('report-context').textContent = session.activeRun
+      ? 'Selected: Run ' + session.activeRun.number + ' · ' + session.activeRun.context.firmName
+        + '. The report includes its original context, seven questions, all entered evidence, and retained drafts.'
+      : 'Choose a run above to download its report.';
     byId('export-context').textContent = session.runs.length
       ? 'Exports all ' + session.runs.length + (session.runs.length === 1 ? ' run' : ' runs')
         + ' in this tab, with the original questions and context on every row.'
@@ -953,6 +1035,15 @@ function initializePlanner() {
         'quotedfirst-ai-search-runs-' + new Date().toISOString().slice(0, 10) + '.json', backupStatus,
         'Runs backup download requested. Keep this JSON file to import on a later visit. Download an updated copy after making changes.');
     } catch (error) { backupStatus.textContent = error.message; }
+  });
+
+  downloadReport.addEventListener('click', () => {
+    const run = session.activeRun;
+    if (!run) return;
+    try {
+      download(createRunReport(run), 'text/html;charset=utf-8', 'law-firm-ai-search-run-' + run.number + '-report.html', recorderStatus,
+        'Report download requested for Run ' + run.number + '. Open the HTML file in your browser to print or save as PDF. Your saved entries are unchanged.');
+    } catch (error) { announceRecorder(error.message); }
   });
 
   backupFile.addEventListener('change', async () => {

@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Law Firm AI Search Visibility Audit Worksheet | Quoted First</title>
-    <meta name="description" content="Plan a law firm AI search audit, record mentions and website links, compare two saved runs, and export your observations as CSV or a reusable backup.">
+    <meta name="description" content="Plan a law firm AI search audit, record evidence, compare saved runs, and download a printable report. Export CSV or keep a reusable local backup.">
     <link rel="canonical" href="https://quotedfirst.com/law-firm-ai-search-audit/">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Law Firm AI Search Visibility Audit Worksheet | Quoted First">
-    <meta property="og:description" content="Seven repeatable questions and a manual AI search recorder. Compare saved runs with the same firm and questions, export CSV, and resume from a local backup.">
+    <meta property="og:description" content="Seven repeatable questions and a manual AI search recorder. Compare saved runs, download a printable report, export CSV, and resume from a local backup.">
     <meta property="og:url" content="https://quotedfirst.com/law-firm-ai-search-audit/">
     <link rel="icon" href="./favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="./styles.css">
-    <link rel="stylesheet" href="./audit.css?v=20260909-p">
+    <link rel="stylesheet" href="./audit.css?v=20260910-q">
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -34,12 +34,12 @@
             "applicationCategory": "BusinessApplication",
             "operatingSystem": "Any",
             "browserRequirements": "JavaScript is required for personalized queries, the observation recorder, and custom downloads. Static example files are available without JavaScript.",
-            "description": "Creates seven queries and records manual observations in separate runs with fixed questions and search context. Compares two saved runs for the same firm and exact questions. Exports CSV and local JSON backups that can be imported on a later visit. Entries are not saved automatically; searches are run separately by the user."
+            "description": "Creates seven queries and records manual observations in separate runs with fixed questions and search context. Compares two saved runs for the same firm and exact questions. Downloads a printable HTML report for one selected run, CSV for all runs, and local JSON backups that can be imported on a later visit. Entries are not saved automatically; searches are run separately by the user."
           }
         ]
       }
     </script>
-    <script type="module" src="./audit.js?v=20260909-p"></script>
+    <script type="module" src="./audit.js?v=20260910-q"></script>
   </head>
   <body class="audit-page">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -218,6 +218,12 @@
               <button class="button audit-button" id="download-runs" type="button" disabled>Download all runs (CSV)</button>
             </div>
             <p class="field-hint" id="export-context"></p>
+            <section class="report-tools" aria-labelledby="report-title">
+              <h3 id="report-title">Download a printable run report</h3>
+              <p class="field-hint" id="report-context">Choose a run above to download its report.</p>
+              <button class="button audit-button-secondary" id="download-report" type="button" aria-describedby="report-context report-help" disabled>Download selected run report (HTML)</button>
+              <p class="field-hint" id="report-help">Open the file in your browser, then use Print or Save as PDF. The report includes all entered notes and retained drafts; review it before sharing. Keep the separate JSON backup to resume editing.</p>
+            </section>
             <p class="planner-status" id="recorder-status" role="status" aria-live="polite" aria-atomic="true"></p>
 
             <section class="comparison-tools" id="compare-runs" aria-labelledby="comparison-title">
@@ -339,6 +345,10 @@
             <article class="service">
               <h3>Does a missing result mean we are not indexed?</h3>
               <p>No. These questions show what appeared in specific searches. They do not expose an index inventory or explain why a page was omitted. Record the absence without assigning a cause the evidence does not establish.</p>
+            </article>
+            <article class="service">
+              <h3>Can I print an audit report for review?</h3>
+              <p>Choose a saved run and download its printable HTML report. Open the file in your browser to read, print, or save it as a PDF. It includes the original firm and search context, all seven questions, reviewed-response counts, source URLs, answer text, accuracy notes, evidence references, and next actions. Not-run questions, errors, and retained draft classifications stay clearly labelled. Each download is a snapshot of that run; use the JSON backup to resume editing.</p>
             </article>
             <article class="service">
               <h3>What can we compare between runs?</h3>
