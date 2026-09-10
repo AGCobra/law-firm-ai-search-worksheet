@@ -18,6 +18,8 @@ The comparison keeps your selected A/B order and shows each run’s original too
 
 The worksheet does not run searches, recommend lawyers, check legal citations or calculate a universal visibility score. A missing mention does not establish that a page is absent from an index.
 
+Considering recurring monitoring? Bring the same saved questions to vendor demos and [compare LLM SEO platforms for law firms](https://quotedfirst.com/resources/llm-seo-platforms-for-law-firms.html). Check engine coverage, answer and citation exports, and limits on the plan you are considering.
+
 ## Keep your records
 
 Entries stay in memory in the open browser tab. They are not saved automatically or sent to a server by the worksheet. Closing or reloading the tab clears them unless you downloaded a backup. CSV exports all runs for spreadsheet review. The selected-run HTML report is a snapshot for reading and printing: it includes the original run context, all seven questions, source URLs, entered answer or error text, notes, and retained drafts. Review its contents before sharing. The report does not update when a run changes. Use the separate JSON runs backup to import and resume editing. Keep downloaded files in your own chosen storage.
