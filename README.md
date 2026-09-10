@@ -4,6 +4,8 @@ A static copy of the [original Quoted First worksheet](https://quotedfirst.com/l
 
 ## Use the worksheet
 
+[Try the hosted project demo](https://agcobra.github.io/law-firm-ai-search-worksheet/) in your browser without running a local server.
+
 1. Enter one practice area and location to prepare seven questions.
 2. Run each question yourself in the AI search tool you want to review.
 3. Start a run with the firm, search tool, date and settings. Record the answers, source links, firm mentions and accuracy notes you checked.
