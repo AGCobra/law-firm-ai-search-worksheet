@@ -381,6 +381,49 @@ export function summarizeRun(run) {
   return summary;
 }
 
+export function compareRuns(first, second) {
+  if (!first || !second) throw new Error('Choose two saved runs to compare.');
+  if (first.id === second.id) throw new Error('Choose two different runs to compare.');
+  // Reuse the backup validator without changing its format or the original records.
+  const checked = [first, second].map((run, index) => checkedRun({
+    id: run.id, plan: run.plan, context: run.context, observations: run.observations,
+  }, index));
+  const [a, b] = checked;
+  if (a.context.firmName !== b.context.firmName || a.context.firmWebsite !== b.context.firmWebsite) {
+    throw new Error('Choose runs with exactly the same firm name and firm website.');
+  }
+  if (a.plan.practiceArea !== b.plan.practiceArea || a.plan.location !== b.plan.location
+    || a.plan.queries.some((query, index) => ['id', 'intent', 'text'].some(field => query[field] !== b.plan.queries[index][field]))) {
+    throw new Error('Choose runs with exactly the same practice area, location, and seven questions, including their IDs, intent, text, and order.');
+  }
+  const warnings = ['Matching entered labels do not prove that the search conditions were the same.'];
+  for (const [field, label] of [['tool', 'AI search tool'], ['searchContext', 'Search mode and settings'], ['timezone', 'Time zone']]) {
+    if (a.context[field] !== b.context[field]) warnings.push(label + ' differs between Run A and Run B.');
+  }
+  for (const [label, run] of [['A', a], ['B', b]]) {
+    if (!run.context.searchContext.trim()) warnings.push('Run ' + label + ' has no recorded search mode or settings.');
+  }
+  const observation = (run, id) => {
+    const entry = run.observations[id];
+    return {
+      status: entry.status,
+      firmMentioned: entry.status === 'observed' ? entry.firmMentioned : null,
+      firmWebsiteCited: entry.status === 'observed' ? entry.firmWebsiteCited : null,
+    };
+  };
+  return {
+    firmName: a.context.firmName,
+    firmWebsite: a.context.firmWebsite,
+    plan: { practiceArea: a.plan.practiceArea, location: a.plan.location, queries: a.plan.queries.map(query => ({ ...query })) },
+    runs: {
+      a: { id: a.id, number: first.number, context: { ...a.context } },
+      b: { id: b.id, number: second.number, context: { ...b.context } },
+    },
+    rows: a.plan.queries.map(query => ({ ...query, a: observation(a, query.id), b: observation(b, query.id) })),
+    warnings,
+  };
+}
+
 export function createRunsCsv(runs) {
   const headers = [
     'run_id', 'run_number', 'firm_name', 'firm_website', 'tool', 'search_context',
@@ -429,6 +472,12 @@ function initializePlanner() {
   const backupReview = byId('backup-review');
   const backupStatus = byId('backup-status');
   const confirmImport = byId('confirm-import');
+  const comparisonForm = byId('comparison-form');
+  const comparisonSelects = [byId('compare-run-a'), byId('compare-run-b')];
+  const comparisonButton = byId('compare-runs-button');
+  const comparisonStatus = byId('comparison-status');
+  const comparisonResults = byId('comparison-results');
+  let comparedPair = null;
   let importRevision = 0;
   let pendingBackup = null;
   let revision = 0;
@@ -476,6 +525,133 @@ function initializePlanner() {
       ? 'Exports all ' + session.runs.length + (session.runs.length === 1 ? ' run' : ' runs')
         + ' in this tab, with the original questions and context on every row.'
       : 'Start a run to record and export your observations.';
+    updateComparisonMenus();
+  }
+
+  function updateComparisonButton() {
+    comparisonButton.disabled = session.runs.length < 2 || comparisonSelects.some(select => !select.value);
+  }
+
+  function clearComparison() {
+    comparedPair = null;
+    comparisonResults.hidden = true;
+    byId('comparison-contexts').replaceChildren();
+    byId('comparison-questions').replaceChildren();
+    byId('comparison-firm').textContent = '';
+    byId('comparison-notice').textContent = '';
+    comparisonStatus.textContent = '';
+  }
+
+  function updateComparisonMenus() {
+    const runs = session.runs;
+    for (const [index, select] of comparisonSelects.entries()) {
+      const selectedId = select.value;
+      const placeholder = document.createElement('option');
+      placeholder.value = '';
+      placeholder.textContent = 'Choose run ' + (index === 0 ? 'A' : 'B');
+      select.replaceChildren(placeholder, ...runs.map(run => {
+        const option = document.createElement('option');
+        option.value = run.id;
+        option.textContent = 'Run ' + run.number + ' · ' + run.context.firmName + ' · '
+          + run.context.tool + ' · ' + run.context.runDatetime;
+        return option;
+      }));
+      select.value = runs.some(run => run.id === selectedId) ? selectedId : '';
+      select.disabled = runs.length < 2;
+    }
+    byId('comparison-availability').textContent = runs.length < 2
+      ? 'Start or import at least two runs to compare the same firm and saved questions.'
+      : 'Choose Run A and Run B, then compare. Your selection order does not establish which searches came first.';
+    if (comparedPair && comparedPair.some(id => !runs.some(run => run.id === id))) clearComparison();
+    updateComparisonButton();
+  }
+
+  function comparisonDetails(entries) {
+    const details = document.createElement('dl');
+    details.className = 'comparison-details';
+    for (const [label, value] of entries) {
+      const group = document.createElement('div');
+      const term = document.createElement('dt');
+      term.textContent = label;
+      const description = document.createElement('dd');
+      description.textContent = value;
+      group.append(term, description);
+      details.append(group);
+    }
+    return details;
+  }
+
+  function renderComparison({ announce = false, focus = false } = {}) {
+    if (!comparedPair) return;
+    let comparison;
+    try {
+      comparison = compareRuns(...comparedPair.map(id => session.runs.find(run => run.id === id)));
+    } catch (error) {
+      clearComparison();
+      comparisonStatus.textContent = error.message;
+      return;
+    }
+    byId('comparison-results-title').textContent = 'Run ' + comparison.runs.a.number + ' and run '
+      + comparison.runs.b.number + ' · question comparison';
+    byId('comparison-firm').textContent = comparison.firmName + ' · '
+      + comparison.plan.practiceArea + ' · ' + comparison.plan.location;
+    byId('comparison-notice').textContent = comparison.warnings.join(' ')
+      + ' Dates and time zones are shown as entered, without conversion or inferred chronology. '
+      + 'This selected sample does not establish a trend, improvement, or cause.';
+    byId('comparison-contexts').replaceChildren(...['a', 'b'].map(key => {
+      const run = comparison.runs[key];
+      const label = key.toUpperCase();
+      const card = document.createElement('section');
+      card.className = 'comparison-context';
+      const title = document.createElement('h5');
+      title.textContent = 'Run ' + label + ' · Run ' + run.number;
+      const details = comparisonDetails([
+        ['Firm website', run.context.firmWebsite],
+        ['AI search tool', run.context.tool],
+        ['Search mode and settings', run.context.searchContext.trim() ? run.context.searchContext : 'Not specified'],
+        ['Search date and time', run.context.runDatetime],
+        ['Time zone', run.context.timezone],
+      ]);
+      const view = document.createElement('button');
+      view.type = 'button';
+      view.className = 'button audit-button-secondary';
+      view.textContent = 'View run ' + label;
+      view.addEventListener('click', () => {
+        if (session.activeRun?.id !== run.id) {
+          session.selectRun(run.id);
+          renderActiveRun();
+        }
+        byId('active-run-title').focus();
+      });
+      card.append(title, details, view);
+      return card;
+    }));
+    byId('comparison-questions').replaceChildren(...comparison.rows.map(row => {
+      const question = document.createElement('article');
+      question.className = 'comparison-question';
+      const title = document.createElement('h5');
+      title.textContent = row.id + ' · ' + row.text;
+      const values = document.createElement('div');
+      values.className = 'comparison-values';
+      for (const key of ['a', 'b']) {
+        const entry = row[key];
+        const side = document.createElement('section');
+        const label = document.createElement('h6');
+        label.textContent = 'Run ' + key.toUpperCase();
+        const classification = value => value === null ? 'Not available' : CLASSIFICATIONS[value];
+        side.append(label, comparisonDetails([
+          ['Observation status', STATUSES[entry.status]],
+          ['Firm mentioned', classification(entry.firmMentioned)],
+          ['Firm website linked', classification(entry.firmWebsiteCited)],
+        ]));
+        values.append(side);
+      }
+      question.append(title, values);
+      return question;
+    }));
+    comparisonResults.hidden = false;
+    if (announce) comparisonStatus.textContent = 'Showing seven paired questions for Run A and Run B. Your saved entries and draft inputs are unchanged.';
+    if (focus) byId('comparison-results-title').focus();
   }
 
   function updateSummary() {
@@ -563,6 +739,8 @@ function initializePlanner() {
         setObservation(run, query.id, field, control.value);
         if (field === 'status') refreshState();
         updateSummary();
+        // Text drafts do not affect the comparison or trigger live-region announcements.
+        if (options.choices && comparedPair?.includes(run.id)) renderComparison();
       });
       body.append(wrapper);
     }
@@ -717,6 +895,24 @@ function initializePlanner() {
     session.selectRun(runSelect.value);
     renderActiveRun();
     announceRecorder('Showing run ' + session.activeRun.number + ' with its original questions, context, and entries.');
+  });
+
+  for (const select of comparisonSelects) {
+    select.addEventListener('change', () => {
+      clearComparison();
+      updateComparisonButton();
+    });
+  }
+
+  comparisonForm.addEventListener('submit', event => {
+    event.preventDefault();
+    if (session.runs.length < 2 || comparisonSelects.some(select => !select.value)) {
+      clearComparison();
+      comparisonStatus.textContent = 'Choose two saved runs to compare.';
+      return;
+    }
+    comparedPair = comparisonSelects.map(select => select.value);
+    renderComparison({ announce: true, focus: true });
   });
 
   byId('reuse-run-plan').addEventListener('click', () => {

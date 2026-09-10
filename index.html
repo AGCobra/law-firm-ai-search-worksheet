@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Law Firm AI Search Visibility Audit Worksheet | Quoted First</title>
-    <meta name="description" content="Plan a law firm AI search audit, record mentions and website links, export a CSV, and save a local backup to resume your observations on a later visit.">
+    <meta name="description" content="Plan a law firm AI search audit, record mentions and website links, compare two saved runs, and export your observations as CSV or a reusable backup.">
     <link rel="canonical" href="https://quotedfirst.com/law-firm-ai-search-audit/">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Law Firm AI Search Visibility Audit Worksheet | Quoted First">
-    <meta property="og:description" content="Seven repeatable questions and an AI search observation recorder. Keep separate runs, export a CSV, and save a local backup to resume later without signing up.">
+    <meta property="og:description" content="Seven repeatable questions and a manual AI search recorder. Compare saved runs with the same firm and questions, export CSV, and resume from a local backup.">
     <meta property="og:url" content="https://quotedfirst.com/law-firm-ai-search-audit/">
     <link rel="icon" href="./favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="./styles.css">
-    <link rel="stylesheet" href="./audit.css?v=20260908-h">
+    <link rel="stylesheet" href="./audit.css?v=20260909-p">
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -34,12 +34,12 @@
             "applicationCategory": "BusinessApplication",
             "operatingSystem": "Any",
             "browserRequirements": "JavaScript is required for personalized queries, the observation recorder, and custom downloads. Static example files are available without JavaScript.",
-            "description": "Creates seven queries and records manual observations in separate runs with fixed questions and search context. Exports CSV and local JSON backups that can be imported on a later visit. Entries are not saved automatically; searches are run separately by the user."
+            "description": "Creates seven queries and records manual observations in separate runs with fixed questions and search context. Compares two saved runs for the same firm and exact questions. Exports CSV and local JSON backups that can be imported on a later visit. Entries are not saved automatically; searches are run separately by the user."
           }
         ]
       }
     </script>
-    <script type="module" src="./audit.js?v=20260908-h"></script>
+    <script type="module" src="./audit.js?v=20260909-p"></script>
   </head>
   <body class="audit-page">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -220,6 +220,32 @@
             <p class="field-hint" id="export-context"></p>
             <p class="planner-status" id="recorder-status" role="status" aria-live="polite" aria-atomic="true"></p>
 
+            <section class="comparison-tools" id="compare-runs" aria-labelledby="comparison-title">
+              <h3 id="comparison-title">Compare two saved runs</h3>
+              <p class="field-hint" id="comparison-help">Choose two runs for the same firm, website, and exact questions. Review each question's status, firm mention, and website link together. Run A and Run B follow your selection; their labels do not imply a time order.</p>
+              <form class="comparison-form" id="comparison-form" aria-describedby="comparison-help comparison-availability">
+                <div class="planner-field">
+                  <label for="compare-run-a">Run A</label>
+                  <select id="compare-run-a" disabled><option value="">Choose a run</option></select>
+                </div>
+                <div class="planner-field">
+                  <label for="compare-run-b">Run B</label>
+                  <select id="compare-run-b" disabled><option value="">Choose a run</option></select>
+                </div>
+                <button class="button audit-button" id="compare-runs-button" type="submit" disabled>Compare runs</button>
+              </form>
+              <p class="field-hint" id="comparison-availability">Start or import at least two runs to compare them.</p>
+              <p class="planner-status" id="comparison-status" role="status" aria-live="polite" aria-atomic="true"></p>
+              <div class="comparison-results" id="comparison-results" hidden>
+                <h4 id="comparison-results-title" tabindex="-1">Your paired observations</h4>
+                <p class="field-hint" id="comparison-firm"></p>
+                <p class="comparison-notice" id="comparison-notice"></p>
+                <div class="comparison-contexts" id="comparison-contexts"></div>
+                <p class="field-hint">Only reviewed responses show mention and link classifications. “Not run” and “Search error” show “Not available,” even if earlier draft choices are saved. Use “View run” to review the recorded answers, sources, and notes. This comparison updates when you edit those runs.</p>
+                <div class="comparison-questions" id="comparison-questions"></div>
+              </div>
+            </section>
+
             <section class="active-run" id="active-run" aria-labelledby="active-run-title" hidden>
               <div class="active-run-heading">
                 <p class="eyebrow">Selected run</p>
@@ -268,7 +294,7 @@
             <article class="service">
               <span class="service-number" aria-hidden="true">03</span>
               <h3>Compare later observations</h3>
-              <p>Import your saved runs backup and select a run. Choose “Use these questions for a new run” to retain its exact questions, then enter the new search date and context. Record fresh observations and note website changes between runs. A missing result does not establish index absence, and seven questions cannot describe every prospective client's experience.</p>
+              <p>Import your saved runs backup and select a run. Choose “Use these questions for a new run” to retain its exact questions, then enter the new search date and context. Record fresh observations. In “Compare two saved runs,” select both runs to review each question together, including errors and unfinished searches. Check the original tool and settings before interpreting differences. A change in this sample does not establish why it happened, and seven questions cannot describe every prospective client's experience.</p>
             </article>
           </div>
         </div>
@@ -328,6 +354,8 @@
             <p class="eyebrow">Help with the next step</p>
             <h2 id="contact-title">Turn observations<br>into useful questions.</h2>
             <p>Use the <a href="https://quotedfirst.com/law-firm-ai-search-audit/">original live worksheet</a> or visit <a href="https://quotedfirst.com/llm-seo-for-law-firms/">Quoted First for law firms</a> for more information.</p>
+            <p>For a page-by-page access review, use the <a href="https://quotedfirst.com/resources/ai-crawler-technical-checklist.html">AI crawler technical checklist</a>. To define outside help, adapt the <a href="https://quotedfirst.com/ai-search-optimization-rfp-template.html">AI search optimization RFP template</a>.</p>
+            <p class="field-hint">The <a href="https://github.com/AGCobra/law-firm-ai-search-worksheet">worksheet source files on GitHub</a> include instructions for running a local copy.</p>
           </div>
           <div class="contact-action">
             <a class="email-link" href="mailto:hello@quotedfirst.com">hello@quotedfirst.com <span aria-hidden="true">↗</span></a>
